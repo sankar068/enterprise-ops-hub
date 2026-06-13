@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { AgentResponseSchema, SYSTEM_PROMPT, type AgentResponse } from "./schema";
+import { rateLimiterMiddleware } from "./security.middleware";
 
 const InputSchema = z.object({
   messages: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string() })).min(1),
@@ -94,6 +95,7 @@ async function callFoundry(messages: { role: string; content: string }[], endpoi
 }
 
 export const chatWithAgent = createServerFn({ method: "POST" })
+  .middleware([rateLimiterMiddleware])
   .inputValidator((d: unknown) => InputSchema.parse(d))
   .handler(async ({ data }) => {
     const endpoint = process.env.AZURE_AI_ENDPOINT;
