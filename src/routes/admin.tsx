@@ -154,12 +154,12 @@ function AdminDashboard() {
     setSubmittingAction(true);
     
     try {
-      const res = await updateRequestStatus({
+      const res = await updateRequestStatus({ data: {
         id: selectedRequest.id,
         status: status as any,
         adminComment: adminComment.trim() || undefined,
         assignedTo: assignedToInput.trim() || undefined,
-      });
+      }});
 
       if (res.success) {
         toast.success(`Request ${selectedRequest.request_id} updated successfully.`);

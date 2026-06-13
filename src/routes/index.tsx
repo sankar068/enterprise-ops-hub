@@ -107,12 +107,12 @@ function Landing() {
       {/* Architecture */}
       <section id="tech" className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="text-center font-display text-3xl font-bold">Architecture</h2>
-        <p className="mt-2 text-center text-muted-foreground">Built on Lovable Cloud with Microsoft Foundry as the reasoning layer.</p>
+        <p className="mt-2 text-center text-muted-foreground">Built on Supabase with Microsoft Foundry as the reasoning layer.</p>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {[
             { icon: MessageSquare, t: "Conversational UI", d: "TanStack Start, React, Tailwind." },
             { icon: Workflow, t: "Foundry Reasoning", d: "Structured JSON · Zod-validated · Multi-turn." },
-            { icon: ShieldCheck, t: "Secure Backend", d: "Lovable Cloud Postgres + RLS + Auth." },
+            { icon: ShieldCheck, t: "Secure Backend", d: "Supabase Postgres + RLS + Auth." },
           ].map((c) => (
             <div key={c.t} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
               <c.icon className="h-6 w-6 text-accent" />

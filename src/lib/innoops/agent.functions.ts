@@ -96,7 +96,7 @@ async function callFoundry(messages: { role: string; content: string }[], endpoi
 
 export const chatWithAgent = createServerFn({ method: "POST" })
   .middleware([rateLimiterMiddleware])
-  .inputValidator((d: unknown) => InputSchema.parse(d))
+  .validator((d: unknown) => InputSchema.parse(d))
   .handler(async ({ data }) => {
     const endpoint = process.env.AZURE_AI_ENDPOINT;
     const key = process.env.AZURE_AI_API_KEY;

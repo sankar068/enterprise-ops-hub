@@ -64,8 +64,8 @@ export const getAdminRequests = createServerFn({ method: "GET" })
 // 2. Server function to update status, comment, or assignment of a request
 export const updateRequestStatus = createServerFn({ method: "POST" })
   .middleware([rateLimiterMiddleware, requireSupabaseAuth])
-  .inputValidator((d: unknown) => UpdateRequestStatusSchema.parse(d))
-  .handler(async ({ input, context }) => {
+  .validator((d: unknown) => UpdateRequestStatusSchema.parse(d))
+  .handler(async ({ data: input, context }) => {
     const { supabase, userId } = context;
     const { id, status, adminComment, assignedTo } = input;
 
