@@ -8,7 +8,7 @@ export const AgentResponseSchema = z.object({
   title: z.string(),
   description: z.string(),
   priority: z.enum(["Low", "Normal", "High", "Critical"]),
-  extractedDetails: z.record(z.string(), z.unknown()).default({}),
+  extractedDetails: z.record(z.string(), z.any()).default({}),
   missingFields: z.array(z.string()).default([]),
   readyToCreate: z.boolean(),
   nextAction: z.string(),

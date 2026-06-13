@@ -85,7 +85,7 @@ export const updateRequestStatus = createServerFn({ method: "POST" })
     const actorName = adminProfile?.name || "Administrator";
 
     // Prepare update payload
-    const updatePayload: Record<string, any> = {
+    const updatePayload: any = {
       status,
       updated_at: new Date().toISOString(),
     };
@@ -112,20 +112,21 @@ export const updateRequestStatus = createServerFn({ method: "POST" })
     }
 
     // Insert timeline entry
-    const timelineNote = [
-      adminComment ? `Comment: "${adminComment}"` : "",
-      assignedTo ? `Assigned to: "${assignedTo}"` : "",
-    ].filter(Boolean).join(" | ") || "Status updated";
+    const timelineNote =
+      [
+        adminComment ? `Comment: "${adminComment}"` : "",
+        assignedTo ? `Assigned to: "${assignedTo}"` : "",
+      ]
+        .filter(Boolean)
+        .join(" | ") || "Status updated";
 
-    const { error: timelineError } = await supabase
-      .from("request_timeline")
-      .insert({
-        request_id: id,
-        action: `Updated Status to ${status}`,
-        actor_id: userId,
-        actor_name: actorName,
-        note: timelineNote,
-      });
+    const { error: timelineError } = await supabase.from("request_timeline").insert({
+      request_id: id,
+      action: `Updated Status to ${status}`,
+      actor_id: userId,
+      actor_name: actorName,
+      note: timelineNote,
+    });
 
     if (timelineError) {
       console.error("[Admin API] Error logging timeline entry:", timelineError);
