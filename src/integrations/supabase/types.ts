@@ -14,13 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          department: string | null
+          email: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          department?: string | null
+          email: string
+          id: string
+          name?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          department?: string | null
+          email?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      requests: {
+        Row: {
+          admin_comment: string | null
+          assigned_to: string | null
+          created_at: string
+          department: Database["public"]["Enums"]["request_department"]
+          description: string
+          details: Json
+          employee_name: string
+          id: string
+          original_message: string | null
+          priority: Database["public"]["Enums"]["request_priority"]
+          request_id: string
+          request_type: string
+          status: Database["public"]["Enums"]["request_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_comment?: string | null
+          assigned_to?: string | null
+          created_at?: string
+          department: Database["public"]["Enums"]["request_department"]
+          description?: string
+          details?: Json
+          employee_name: string
+          id?: string
+          original_message?: string | null
+          priority?: Database["public"]["Enums"]["request_priority"]
+          request_id: string
+          request_type: string
+          status?: Database["public"]["Enums"]["request_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_comment?: string | null
+          assigned_to?: string | null
+          created_at?: string
+          department?: Database["public"]["Enums"]["request_department"]
+          description?: string
+          details?: Json
+          employee_name?: string
+          id?: string
+          original_message?: string | null
+          priority?: Database["public"]["Enums"]["request_priority"]
+          request_id?: string
+          request_type?: string
+          status?: Database["public"]["Enums"]["request_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "employee" | "super_admin"
