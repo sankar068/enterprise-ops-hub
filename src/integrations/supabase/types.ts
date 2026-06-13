@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action: string
+          comment: string | null
+          created_at: string
+          id: string
+          new_status: Database["public"]["Enums"]["request_status"] | null
+          performed_by: string | null
+          previous_status: Database["public"]["Enums"]["request_status"] | null
+          request_id: string | null
+        }
+        Insert: {
+          action: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["request_status"] | null
+          performed_by?: string | null
+          previous_status?: Database["public"]["Enums"]["request_status"] | null
+          request_id?: string | null
+        }
+        Update: {
+          action?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["request_status"] | null
+          performed_by?: string | null
+          previous_status?: Database["public"]["Enums"]["request_status"] | null
+          request_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -40,6 +81,44 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      request_timeline: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_name: string | null
+          created_at: string
+          id: string
+          note: string | null
+          request_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_name?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          request_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_name?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "request_timeline_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       requests: {
         Row: {
